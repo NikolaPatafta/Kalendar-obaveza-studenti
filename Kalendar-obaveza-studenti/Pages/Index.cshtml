@@ -1,96 +1,280 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Kalendar obaveza za studente";
 }
 
-<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <img src="~/images/banner1.svg" alt="ASP.NET" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    Learn how to build ASP.NET apps that can run anywhere.
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="~/images/banner2.svg" alt="Visual Studio" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    There are powerful new features in Visual Studio for building modern web apps.
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525030&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="~/images/banner3.svg" alt="Microsoft Azure" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    Learn how Microsoft's Azure cloud platform allows you to build, deploy, and scale web apps.
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525027&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
-            </div>
-        </div>
-    </div>
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MEV Kalendar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css'>
+    <link rel="stylesheet" href="C:\Users\Silvano Patafta\source\repos\Kalendar-obaveza-studenti\simple-calendar\dist\style.css">
+</head>
+<body>
+    <!-- partial:index.partial.html -->
+    <script>
+    // fill the month table with column headings
+        function day_title(day_name) {
+            document.write("<div class='c-cal__col'>" + day_name + "</div>");
+        }
+        // fills the month table with numbers
+        function fill_table(month, month_length, indexMonth) {
+            day = 1;
+            // begin the new month table
+            document.write("<div class='c-main c-main-" + indexMonth + "'>");
+            //document.write("<b>"+month+" "+year+"</b>")
 
-<div class="row">
-    <div class="col-md-3">
-        <h2>Application uses</h2>
-        <ul>
-            <li>Sample pages using ASP.NET Core Razor Pages</li>
-            <li>Theming using <a href="https://go.microsoft.com/fwlink/?LinkID=398939">Bootstrap</a></li>
-        </ul>
+            // column headings
+            document.write("<div class='c-cal__row'>");
+            day_title("Sun");
+            day_title("Mon");
+            day_title("Tue");
+            day_title("Wed");
+            day_title("Thu");
+            day_title("Fri");
+            day_title("Sat");
+            document.write("</div>");
+
+            // pad cells before first day of month
+            document.write("<div class='c-cal__row'>");
+            for (var i = 1; i < start_day; i++) {
+                if (start_day > 7) {
+                } else {
+                    document.write("<div class='c-cal__cel'></div>");
+                }
+            }
+
+            // fill the first week of days
+            for (var i = start_day; i < 8; i++) {
+                document.write(
+                    "<div data-day='2017-" +
+                    indexMonth +
+                    "-0" +
+                    day +
+                    "'class='c-cal__cel'><p>" +
+                    day +
+                    "</p></div>"
+                );
+                day++;
+            }
+            document.write("</div>");
+
+            // fill the remaining weeks
+            while (day <= month_length) {
+                document.write("<div class='c-cal__row'>");
+                for (var i = 1; i <= 7 && day <= month_length; i++) {
+                    if (day >= 1 && day <= 9) {
+                        document.write(
+                            "<div data-day='2017-" +
+                            indexMonth +
+                            "-0" +
+                            day +
+                            "'class='c-cal__cel'><p>" +
+                            day +
+                            "</p></div>"
+                        );
+                        day++;
+                    } else {
+                        document.write(
+                            "<div data-day='2017-" +
+                            indexMonth +
+                            "-" +
+                            day +
+                            "' class='c-cal__cel'><p>" +
+                            day +
+                            "</p></div>"
+                        );
+                        day++;
+                    }
+                }
+                document.write("</div>");
+                // the first day of the next month
+                start_day = i;
+            }
+
+            document.write("</div>");
+        }</script>
+    <header>
+        <div class="wrapper">
+            <div class="c-monthyear">
+                <div class="c-month">
+                    <span id="prev" class="prev fa fa-angle-left" aria-hidden="true"></span>
+                    <div id="c-paginator">
+                        <span class="c-paginator__month">SIJEČANJ</span>
+                        <span class="c-paginator__month">VELJAČA</span>
+                        <span class="c-paginator__month">OŽUJAK</span>
+                        <span class="c-paginator__month">TRAVANJ</span>
+                        <span class="c-paginator__month">SVIBANJ</span>
+                        <span class="c-paginator__month">LIPANJ</span>
+                        <span class="c-paginator__month">SRPANJ</span>
+                        <span class="c-paginator__month">KOLOVOZ</span>
+                        <span class="c-paginator__month">RUJAN</span>
+                        <span class="c-paginator__month">LISTOPAD</span>
+                        <span class="c-paginator__month">STUDENI</span>
+                        <span class="c-paginator__month">PROSINAC</span>
+                    </div>
+                    <span id="next" class="next fa fa-angle-right" aria-hidden="true"></span>
+                </div>
+                <span class="c-paginator__year">2019</span>
+            </div>
+            <div class="c-sort">
+                <a class="o-btn c-today__btn" href="javascript:;">DANAS</a>
+            </div>
+        </div>
+    </header>
+    <div class="wrapper">
+        <div class="c-calendar">
+            <div class="c-calendar__style c-aside">
+                <a class="c-add o-btn js-event__add" href="javascript:;">Biljeske <span class="fa fa-plus"></span></a>
+                <div class="c-aside__day">
+                    <span class="c-aside__num"></span> <span class="c-aside__month"></span>
+                </div>
+                <div class="c-aside__eventList">
+                </div>
+            </div>
+            <div class="c-cal__container c-calendar__style">
+                <script>
+    // CAHNGE the below variable to the CURRENT YEAR
+                    year = 2017;
+
+                    // first day of the week of the new year
+                    today = new Date("January 1, " + year);
+                    start_day = today.getDay() + 1;
+                    fill_table("January", 31, "01");
+                    fill_table("February", 28, "02");
+                    fill_table("March", 31, "03");
+                    fill_table("April", 30, "04");
+                    fill_table("May", 31, "05");
+                    fill_table("June", 30, "06");
+                    fill_table("July", 31, "07");
+                    fill_table("August", 31, "08");
+                    fill_table("September", 30, "09");
+                    fill_table("October", 31, "10");
+                    fill_table("November", 30, "11");
+                    fill_table("December", 31, "12");</script>
+            </div>
+        </div>
+        <div class="c-event__creator c-calendar__style js-event__creator">
+            <a href="javascript:;" class="o-btn js-event__close">Zatvori <span class="fa fa-close"></span></a>
+            <form id="addEvent">
+                <input placeholder="Naziv događaja" type="text" name="name">
+                <input type="date" name="date">
+                <textarea placeholder="Bilješka" name="notes" cols="30" rows="10"></textarea>
+                <select name="tags">
+                    <option value="event">event</option>
+                    <option value="important">important</option>
+                </select>
+            </form>
+            <br>
+            <a href="javascript:;" class="o-btn js-event__save">Spremi <span class="fa fa-save"></span></a>
+        </div>
     </div>
-    <div class="col-md-3">
-        <h2>How to</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?linkid=852130">Working with Razor Pages.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699315">Manage User Secrets using Secret Manager.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699316">Use logging to log a message.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699317">Add packages using NuGet.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699319">Target development, staging or production environment.</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>Overview</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=518008">Conceptual overview of what is ASP.NET Core</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699320">Fundamentals of ASP.NET Core such as Startup and middleware.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398602">Working with Data</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398603">Security</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699321">Client side development</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699322">Develop on different platforms</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699323">Read more on the documentation site</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>Run &amp; Deploy</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=517851">Run your app</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=517853">Run tools such as EF migrations and more</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure App Service</a></li>
-        </ul>
-    </div>
-</div>
+    <!-- partial -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.cycle2/2.1.6/jquery.cycle2.core.min.js'></script>
+    <script src="./script.js"></script>
+    
+    <style>
+
+
+    </style >
+
+        </body >
+        </html >
+
+
+
+
+        @*<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000" >
+        <ol class="carousel-indicators" >
+        <li data-target="#myCarousel" data-slide-to="0" class="active" > </li >
+        <li data-target="#myCarousel" data-slide-to="1" > </li >
+        <li data-target="#myCarousel" data-slide-to="2" > </li >
+        </ol >
+        <div class="carousel-inner" role="listbox" >
+        <div class="item active" >
+        <img src="~/images/banner1.svg" alt="ASP.NET" class="img-responsive" / >
+        <div class="carousel-caption" role="option" >
+        <p >
+        Learn how to build ASP.NET apps that can run anywhere.
+        <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409" >
+        Learn More
+        </a >
+        </p >
+        </div >
+        </div >
+        <div class="item" >
+        <img src="~/images/banner2.svg" alt="Visual Studio" class="img-responsive" / >
+        <div class="carousel-caption" role="option" >
+        <p >
+        There are powerful new features in Visual Studio for building modern web apps.
+        <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525030&clcid=0x409" >
+        Learn More
+        </a >
+        </p >
+        </div >
+        </div >
+        <div class="item" >
+        <img src="~/images/banner3.svg" alt="Microsoft Azure" class="img-responsive" / >
+        <div class="carousel-caption" role="option" >
+        <p >
+        Learn how Microsoft's Azure cloud platform allows you to build, deploy, and scale web apps.
+        <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525027&clcid=0x409" >
+        Learn More
+        </a >
+        </p >
+        </div >
+        </div >
+        </div >
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev" >
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true" > </span >
+        <span class="sr-only" > Previous</span >
+        </a >
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next" >
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" > </span >
+        <span class="sr-only" > Next</span >
+        </a >
+        </div >
+
+        <div class="row" >
+        <div class="col-md-3" >
+        <h2 > Application uses</h2 >
+        <ul >
+        <li > Sample pages using ASP.NET Core Razor Pages</li >
+        <li > Theming using <a href="https://go.microsoft.com/fwlink/?LinkID=398939" > Bootstrap</a > </li >
+        </ul >
+        </div >
+        <div class="col-md-3" >
+        <h2 > How to</h2 >
+        <ul >
+        <li > <a href="https://go.microsoft.com/fwlink/?linkid=852130" > Working with Razor Pages.</a > </li >
+        <li > <a href="https://go.microsoft.com/fwlink/?LinkId=699315" > Manage User Secrets using Secret Manager.</a > </li >
+        <li > <a href="https://go.microsoft.com/fwlink/?LinkId=699316" > Use logging to log a message.</a > </li >
+        <li > <a href="https://go.microsoft.com/fwlink/?LinkId=699317" > Add packages using NuGet.</a > </li >
+        <li > <a href="https://go.microsoft.com/fwlink/?LinkId=699319" > Target development, staging or production environment.</a > </li >
+        </ul >
+        </div >
+        <div class="col-md-3" >
+        <h2 > Overview</h2 >
+        <ul >
+        <li > <a href="https://go.microsoft.com/fwlink/?LinkId=518008" > Conceptual overview of what is ASP.NET Core</a > </li >
+        <li > <a href="https://go.microsoft.com/fwlink/?LinkId=699320" > Fundamentals of ASP.NET Core such as Startup and middleware.</a > </li >
+        <li > <a href="https://go.microsoft.com/fwlink/?LinkId=398602" > Working with Data</a > </li >
+        <li > <a href="https://go.microsoft.com/fwlink/?LinkId=398603" > Security</a > </li >
+        <li > <a href="https://go.microsoft.com/fwlink/?LinkID=699321" > Client side development</a > </li >
+        <li > <a href="https://go.microsoft.com/fwlink/?LinkID=699322" > Develop on different platforms</a > </li >
+        <li > <a href="https://go.microsoft.com/fwlink/?LinkID=699323" > Read more on the documentation site</a > </li >
+        </ul >
+        </div >
+        <div class="col-md-3" >
+        <h2 > Run &amp; Deploy</h2 >
+        <ul >
+        <li > <a href="https://go.microsoft.com/fwlink/?LinkID=517851" > Run your app</a > </li >
+        <li > <a href="https://go.microsoft.com/fwlink/?LinkID=517853" > Run tools such as EF migrations and more</a > </li >
+        <li > <a href="https://go.microsoft.com/fwlink/?LinkID=398609" > Publish to Microsoft Azure App Service</a > </li >
+        </ul >
+        </div >
+        </div > *@
